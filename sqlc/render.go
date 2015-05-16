@@ -170,6 +170,8 @@ func (d Dialect) renderPlaceholder(n int) string {
 	switch d {
 	case Postgres:
 		return fmt.Sprintf("$%d", n)
+	case Oracle:
+		return fmt.Sprintf(":%d", n)
 	default:
 		return "?"
 	}

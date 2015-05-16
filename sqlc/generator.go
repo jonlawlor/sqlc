@@ -5,7 +5,6 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"github.com/relops/sqlc/meta"
 	"io/ioutil"
 	"log"
 	"os"
@@ -13,13 +12,15 @@ import (
 	"strings"
 	"text/template"
 	"time"
+
+	"github.com/jonlawlor/sqlc/meta"
 )
 
 var integer = regexp.MustCompile("INT")
 var int_64 = regexp.MustCompile("INTEGER|BIGINT")
 var varchar = regexp.MustCompile("VARCHAR|CHARACTER VARYING|TEXT")
 var ts = regexp.MustCompile("TIMESTAMP|DATETIME")
-var dbType = regexp.MustCompile("mysql|postgres|sqlite")
+var dbType = regexp.MustCompile("mysql|postgres|sqlite|oracle")
 
 type Provenance struct {
 	Version   string
@@ -41,8 +42,8 @@ type Options struct {
 	Url     string `short:"u" long:"url" description:"The DB URL"`
 	Output  string `short:"o" long:"output" description:"The path to save the generated objects to" required:"true"`
 	Package string `short:"p" long:"package" description:"The package to put the generated objects into" required:"true"`
-	Type    string `short:"t" long:"type" description:"The type of the DB (mysql,postgres,sqlite)" required:"true"`
-	Schema  string `short:"s" long:"schema" description:"The target DB schema (required for MySQL and Postgres)"`
+	Type    string `short:"t" long:"type" description:"The type of the DB (mysql,postgres,sqlite,oracle)" required:"true"`
+	Schema  string `short:"s" long:"schema" description:"The target DB schema (required for MySQL, Postgres, and Oracle)"`
 	Version func() `short:"V" long:"version" description:"Print sqlc version and exit"`
 	Dialect Dialect
 }
@@ -55,6 +56,8 @@ func (o *Options) DbType() (Dialect, error) {
 		return MySQL, nil
 	case "postgres":
 		return Postgres, nil
+	case "oracle":
+		return Oracle, nil
 	default:
 		return Sqlite, errors.New("Invalid Db type")
 	}
@@ -72,7 +75,7 @@ func (o *Options) Validate() error {
 	}
 
 	switch d {
-	case MySQL, Postgres:
+	case MySQL, Postgres, Oracle:
 		if o.Schema == "" {
 			return errors.New("Must specify a target schema")
 		}
@@ -260,6 +263,18 @@ const infoTablesTmpl = `
 
 const infoColumnsTmpl = `
 	SELECT column_name, UPPER(data_type)
-	FROM information_schema.columns 
+	FROM information_schema.columns
 	WHERE table_schema = %s and table_name = %s;
+`
+
+const atcTablesTmpl = `
+select distinct table_name
+from all_tab_cols
+where owner = %s'
+`
+
+const atcColumnsTmpl = `
+SELECT column_name, UPPER(data_type)
+FROM all_tab_cols
+WHERE owner = %s and table_name = %s
 `

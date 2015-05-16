@@ -4,13 +4,14 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jessevdk/go-flags"
-	_ "github.com/lib/pq"
-	_ "github.com/mattn/go-sqlite3"
-	"github.com/relops/sqlc/sqlc"
 	"log"
 	"os"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/jonlawlor/sqlc/sqlc"
+	_ "github.com/lib/pq"
+	_ "github.com/mattn/go-oci8"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 var VERSION string = "0.1.5"
@@ -64,6 +65,9 @@ func dataSource() (*sql.DB, sqlc.Dialect, error) {
 		return db, d, err
 	case sqlc.Postgres:
 		db, err := sql.Open("postgres", opts.Url)
+		return db, d, err
+	case sqlc.Oracle:
+		db, err := sql.Open("oracle", opts.Url)
 		return db, d, err
 	default:
 		return nil, sqlc.Sqlite, errors.New("Invalid Db type")

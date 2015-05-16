@@ -29,6 +29,7 @@ const (
 	Sqlite Dialect = iota
 	MySQL
 	Postgres
+	Oracle
 )
 
 type Aliasable interface {
