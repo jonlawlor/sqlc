@@ -5,12 +5,13 @@ package main
 import (
 	"bytes"
 	"fmt"
-	log "github.com/cihub/seelog"
-	"github.com/relops/sqlc/meta"
 	"io/ioutil"
 	"os"
 	"strings"
 	"text/template"
+
+	log "github.com/cihub/seelog"
+	"github.com/jonlawlor/sqlc/meta"
 )
 
 var logConfig = `

@@ -6,7 +6,7 @@
 package {{ .Package }}
 
 import (
-	"github.com/relops/sqlc/sqlc"
+	"github.com/jonlawlor/sqlc/sqlc"
 	"strings"
 )
 
@@ -69,7 +69,7 @@ func (t *{{ toLower $t.Name }}) Fields() []sqlc.Field {
 {{ range $_, $t := .Tables }}
 var __{{ toLower $t.Name }} = &{{ toLower $t.Name }}{}
 var {{ toUpper $t.Name }} = &{{ toLower $t.Name }} {
-	
+
 {{ range $_, $f := $t.Fields }}
 	{{ toUpper $f.Name }}: sqlc.{{ $f.Type }}(__{{ toLower $t.Name }}, "{{ toUpper $f.Name }}"),
 {{ end }}
