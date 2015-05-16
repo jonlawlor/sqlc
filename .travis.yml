@@ -15,6 +15,7 @@ before_install:
   - go get github.com/go-sql-driver/mysql
   - go get github.com/lib/pq
   - go get github.com/0x6e6562/gosnow
+  - go get github.com/mattn/go-oci8
   - export PATH=$HOME/gopath/bin:$PATH
   - mysql -e "CREATE DATABASE sqlc;"
   - mysql -e "CREATE USER 'sqlc'@'%' IDENTIFIED BY 'sqlc';"
