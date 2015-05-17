@@ -6,12 +6,6 @@ go:
 addons:
   postgresql: "9.3"
 
-env:
-  global:
-    - ORACLE_FILE=oracle-xe-11.2.0-1.0.x86_64.rpm.zip
-    - ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
-    - ORACLE_SID=XE
-
 before_install:
   - go get github.com/jteeuwen/go-bindata/...
   - go get github.com/stretchr/testify/assert
@@ -21,8 +15,6 @@ before_install:
   - go get github.com/go-sql-driver/mysql
   - go get github.com/lib/pq
   - go get github.com/0x6e6562/gosnow
-  - ./download_oracle.sh
-  - ./install_oracle.sh
   - go get github.com/mattn/go-oci8
   - export PATH=$HOME/gopath/bin:$PATH
   - mysql -e "CREATE DATABASE sqlc;"
