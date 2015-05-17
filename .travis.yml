@@ -15,6 +15,9 @@ before_install:
   - go get github.com/go-sql-driver/mysql
   - go get github.com/lib/pq
   - go get github.com/0x6e6562/gosnow
+  - . /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.sh
+  - echo "ORACLE_HOME=${ORACLE_HOME}"
+  - echo "ORACLE_SID=${ORACLE_SID}"
   - go get github.com/mattn/go-oci8
   - export PATH=$HOME/gopath/bin:$PATH
   - mysql -e "CREATE DATABASE sqlc;"
