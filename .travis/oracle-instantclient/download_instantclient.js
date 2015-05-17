@@ -40,4 +40,4 @@ page.settings.userAgent = env['USER_AGENT'];
 
 page.onResourceError = function(error) { system.stderr.writeLine(JSON.stringify(error)); phantom.exit(1); }
 page.onLoadFinished = javascriptRequired;
-page.open('https://edelivery.oracle.com/akam/otn/linux/instantclient/121020/' + env['ORACLE_INSTANTCLIENT_FILE']);
+page.open('https://download.oracle.com/otn/linux/instantclient/121020/' + env['ORACLE_INSTANTCLIENT_FILE']);
