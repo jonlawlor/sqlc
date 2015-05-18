@@ -1,0 +1,9 @@
+prefix=/u01/app/oracle/product/11.2.0/xe
+libdir=${prefix}/lib/
+includedir=${prefix}/rdbms/public/
+Name: OCI
+Description: Oracle database engine
+Version: 11.2
+Libs: -L${libdir} -lclntsh
+Libs.private: 
+Cflags: -I${includedir}
