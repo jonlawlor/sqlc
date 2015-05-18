@@ -35,6 +35,7 @@ before_install:
   - .travis/oracle-instantclient/install_instantclient.sh
   - .travis/oracle-instantclient/download_instantclient_sdk.sh
   - .travis/oracle-instantclient/install_instantclient_sdk.sh
+  - sudo ln -s /usr/include/oracle/12.1/client64 $ORACLE_HOME/include
   - sudo find / -name "sdk"
   - sudo find / -name "oci.h"
   - sudo find / -name "libclntsh.*"
