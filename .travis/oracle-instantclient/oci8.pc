@@ -1,6 +1,6 @@
-prefix=/u01/app/oracle/product/11.2.0/xe
+prefix=/usr/lib/oracle/12.1/client64
 libdir=${prefix}/lib
-includedir=${prefix}/rdbms/public
+includedir=/usr/include/oracle/12.1/client64
 Name: OCI
 Description: Oracle database engine
 Version: 11.2
