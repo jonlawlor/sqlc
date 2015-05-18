@@ -43,8 +43,8 @@ before_install:
   - sudo find / -name "libnnz11.*"
   - sudo find / -name "client64"
   - sudo find / -name "include"
-  - sudo echo /u01/app/oracle/product/11.2.0/xe/lib > /etc/ld.so.conf.d/oracle.conf
-  - sudo ldconfig
+  - export LD_LIBRARY_PATH=/usr/lib/oracle/12.1/client64/lib
+  - export LD_RUN_PATH=/usr/lib/oracle/12.1/client64/lib
   - go get github.com/mattn/go-oci8
   - export PATH=$HOME/gopath/bin:$PATH
   - mysql -e "CREATE DATABASE sqlc;"
