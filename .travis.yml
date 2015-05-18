@@ -27,6 +27,7 @@ before_install:
   - go get github.com/go-sql-driver/mysql
   - go get github.com/lib/pq
   - go get github.com/0x6e6562/gosnow
+  - echo $PKG_CONFIG_PATH
   - .travis/oracle/download.sh
   - .travis/oracle/install.sh
   - .travis/oracle-instantclient/download_instantclient.sh
@@ -34,11 +35,13 @@ before_install:
   - .travis/oracle-instantclient/download_instantclient_sdk.sh
   - .travis/oracle-instantclient/install_instantclient_sdk.sh
   - sudo find / -name "sdk"
+  - sudo find / -name "oci.h"
   - sudo find / -name "libclntsh.*"
   - sudo find / -name "libocci.*"
   - sudo find / -name "libociei.*"
   - sudo find / -name "libnnz11.*"
   - sudo find / -name "client64"
+  - sudo find / -name "include"
   - go get github.com/mattn/go-oci8
   - export PATH=$HOME/gopath/bin:$PATH
   - mysql -e "CREATE DATABASE sqlc;"
