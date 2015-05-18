@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/jessevdk/go-flags"
+	flags "github.com/jessevdk/go-flags"
 	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/relops/sqlc/sqlc"
