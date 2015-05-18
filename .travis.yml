@@ -33,8 +33,7 @@ before_install:
   - .travis/oracle-instantclient/install_instantclient.sh
   - .travis/oracle-instantclient/download_instantclient_sdk.sh
   - .travis/oracle-instantclient/install_instantclient_sdk.sh
-  - sudo find / -name "*instantclient*"
-  - sudo find / -name "libociei.dylib"
+  - sudo find / -name "*oracle*"
   - go get github.com/mattn/go-oci8
   - export PATH=$HOME/gopath/bin:$PATH
   - mysql -e "CREATE DATABASE sqlc;"
