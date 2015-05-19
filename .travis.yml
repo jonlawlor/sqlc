@@ -28,6 +28,12 @@ before_install:
   - go get github.com/go-sql-driver/mysql
   - go get github.com/lib/pq
   - go get github.com/0x6e6562/gosnow
+  - export PATH=$HOME/gopath/bin:$PATH
+  - mysql -e "CREATE DATABASE sqlc;"
+  - mysql -e "CREATE USER 'sqlc'@'%' IDENTIFIED BY 'sqlc';"
+  - mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'sqlc'@'%' WITH GRANT OPTION;" -uroot
+  - createuser sqlc
+  - createdb sqlc -O sqlc
   - .travis/oracle/download.sh
   - .travis/oracle/install.sh
   - .travis/oracle-instantclient/download_instantclient.sh
@@ -38,9 +44,3 @@ before_install:
   - export LD_LIBRARY_PATH=/usr/lib/oracle/12.1/client64/lib
   - export LD_RUN_PATH=/usr/lib/oracle/12.1/client64/lib
   - go get github.com/mattn/go-oci8
-  - export PATH=$HOME/gopath/bin:$PATH
-  - mysql -e "CREATE DATABASE sqlc;"
-  - mysql -e "CREATE USER 'sqlc'@'%' IDENTIFIED BY 'sqlc';"
-  - mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'sqlc'@'%' WITH GRANT OPTION;" -uroot
-  - createuser sqlc
-  - createdb sqlc -O sqlc
